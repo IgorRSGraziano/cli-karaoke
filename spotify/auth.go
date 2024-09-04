@@ -1,7 +1,6 @@
 package spotify
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,18 +11,19 @@ import (
 )
 
 var (
-	ch    = make(chan *spotify.Client)
+	ch = make(chan *spotify.Client)
+	//TODO Pra que serve esse state?
 	state = "abc123"
 	//TODO: Remove static client id after setup dynamic env variable to tests
 	auth = spotifyauth.New(spotifyauth.WithRedirectURL("http://localhost:8080/callback"), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate), spotifyauth.WithClientID("431aff78e2114e178cd14d65ae3d72a3"))
 	// These should be randomly generated for each request
 	//  More information on generating these can be found here,
 	// https://www.oauth.com/playground/authorization-code-with-pkce.html
-	codeVerifier  = "w0HfYrKnG8AihqYHA9_XUPTIcqEXQvCQfOF2IitRgmlF43YWJ8dy2b49ZUwVUOR.YnvzVoTBL57BwIhM4ouSa~tdf0eE_OmiMC_ESCcVOe7maSLIk9IOdBhRstAxjCl7"
-	codeChallenge = "ZhZJzPQXYBMjH8FlGAdYK5AndohLzFfZT-8J7biT7ig"
+	//TODO: Gerar a cada request
+	codeVerifier, codeChallenge = GeneratePKCE()
 )
 
-func Auth() {
+func Auth() *spotify.Client {
 
 	// first start an HTTP server
 	http.HandleFunc("/callback", completeAuth)
@@ -41,12 +41,7 @@ func Auth() {
 	// wait for auth to complete
 	client := <-ch
 
-	// use the client to make calls that require authorization
-	user, err := client.CurrentUser(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("You are logged in as:", user.ID)
+	return client
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {

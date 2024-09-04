@@ -2,9 +2,9 @@ module clickaraoke
 
 go 1.23.0
 
-
 require (
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/nirasan/go-oauth-pkce-code-verifier v0.0.0-20220510032225-4f9f17eaec4c // indirect
 	github.com/zmb3/spotify/v2 v2.4.2 // indirect
 	golang.org/x/net v0.23.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20210810183815-faf39c7919d5 // indirect
