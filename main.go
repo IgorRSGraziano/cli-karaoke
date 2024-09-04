@@ -1,7 +1,10 @@
 package main
 
-import "clickaraoke/spotify"
+import (
+	"clickaraoke/setup"
+)
 
 func main() {
-	spotify.Auth()
+	setup.Init()
+	// spotify.Auth()
 }

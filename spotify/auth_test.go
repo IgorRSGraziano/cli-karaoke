@@ -1,6 +1,7 @@
 package spotify_test
 
 import (
+	"clickaraoke/setup"
 	"clickaraoke/spotify"
 	"context"
 	"fmt"
@@ -9,6 +10,7 @@ import (
 )
 
 func TestAuth(t *testing.T) {
+	setup.Init()
 
 	client := spotify.Auth()
 
@@ -19,6 +21,8 @@ func TestAuth(t *testing.T) {
 
 // TODO: Achar uma forma melhor de testar para não ir no terminal autenticar toda vez
 func TestClientWork(t *testing.T) {
+	setup.Init()
+
 	ctx := context.Background()
 
 	client := spotify.Auth()

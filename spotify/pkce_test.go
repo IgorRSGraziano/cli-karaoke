@@ -1,11 +1,13 @@
 package spotify_test
 
 import (
+	"clickaraoke/setup"
 	"clickaraoke/spotify"
 	"testing"
 )
 
 func TestGenerate(t *testing.T) {
+	setup.Init()
 	codeVerifier, codeChallenge := spotify.GeneratePKCE()
 
 	if codeVerifier == "" {
@@ -18,6 +20,7 @@ func TestGenerate(t *testing.T) {
 }
 
 func TestLength(t *testing.T) {
+	setup.Init()
 	codeVerifier, codeChallenge := spotify.GeneratePKCE()
 
 	if len(codeVerifier) != 43 {
@@ -30,6 +33,7 @@ func TestLength(t *testing.T) {
 }
 
 func TestNotEqual(t *testing.T) {
+	setup.Init()
 	codeVerifier, codeChallenge := spotify.GeneratePKCE()
 
 	if codeVerifier == codeChallenge {
