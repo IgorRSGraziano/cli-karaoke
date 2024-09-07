@@ -24,24 +24,8 @@ func main() {
 
 	client := mxm.New(setup.Env.Musixmatch.ApiKey, http.DefaultClient)
 
-	fmt.Println(current)
-	//fetch the lyrics
-	searchParams := []mxmParams.Param{
-		mxmParams.QueryArtist(current.CurrentlyPlaying.Item.Artists[0].Name),
-		mxmParams.QueryTrack(current.CurrentlyPlaying.Item.Name),
-	}
-
-	searchedTracks, err := client.SearchTrack(context.Background(), searchParams...)
-
-	if err != nil {
-		fmt.Println("Error searching lyrics lyrics")
-		return
-	}
-
-	track := searchedTracks[0]
-
 	lyrics, err := client.GetTrackLyrics(context.Background(), []mxmParams.Param{
-		mxmParams.TrackID(track.ID),
+		mxmParams.TrackISRC(current.CurrentlyPlaying.Item.ExternalIDs["isrc"]),
 	}...)
 
 	if err != nil {
