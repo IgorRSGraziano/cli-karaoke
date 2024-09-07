@@ -3,6 +3,7 @@ module clickaraoke
 go 1.23.0
 
 require (
+	github.com/milindmadhukar/go-musixmatch v1.2.1
 	github.com/zmb3/spotify/v2 v2.4.2
 	golang.org/x/oauth2 v0.18.0
 	gopkg.in/yaml.v3 v3.0.1
