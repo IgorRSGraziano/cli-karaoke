@@ -2,9 +2,20 @@ package main
 
 import (
 	"clickaraoke/setup"
+	"clickaraoke/spotify"
+	"fmt"
 )
 
 func main() {
 	setup.Init()
-	// spotify.Auth()
+	sptf := spotify.NewSpotify()
+
+	current, _ := sptf.GetCurrentPlaying()
+
+	if current == nil {
+		fmt.Println("No music playing")
+		return
+	}
+
+	fmt.Println(current)
 }
