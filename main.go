@@ -15,9 +15,14 @@ func main() {
 	setup.Init()
 	sptf := spotify.NewSpotify()
 
-	current, _ := sptf.GetCurrentPlaying()
+	current, err := sptf.GetCurrentPlaying()
 
-	if current == nil {
+	if err != nil {
+		fmt.Printf("Error getting current playing %v\n", err)
+		return
+	}
+
+	if current == nil || current.CurrentlyPlaying.Item == nil {
 		fmt.Println("No music playing")
 		return
 	}
